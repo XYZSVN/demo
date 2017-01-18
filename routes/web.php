@@ -36,3 +36,7 @@ Route::post('/update-class', 'AcademicManagementController@update_class');
 Route::get('/delete-class-{id}', 'AcademicManagementController@delete_class');
 
 Route::get('/test', 'AcademicManagementController@test');
+
+Route::get('/hello-world', function(){
+  echo 'Hello World';  
+});
