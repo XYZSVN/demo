@@ -19,6 +19,8 @@ class CreateSectionNamesTable extends Migration
             
             $table->string('section_name');
             
+            //new commit
+            
             $table->string('created_by', 255 )->default('user_from_session');
             $table->softDeletes();
             $table->timestamps();
