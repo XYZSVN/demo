@@ -54,10 +54,13 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ url()->current() == url("/class-management") ? "active" : "" }}}"><a href="{{url('/class-management')}}">CLass Management</a></li>
+                    <li class="{{ url()->current() == url("/class-management") ? "active" : "" }}"><a href="{{url('/class-management')}}">CLass Management</a></li>
                     <li><a href="#">Link in level 2</a></li>
                 </ul>
             </li>
+            
+            <li class="{{ Request::is('add-fees') ? 'active' : ' ' }}"><a href="{{url('add-fees')}}"><i class="fa fa-link"></i> <span>Add Fees</span></a></li>
+            <li class="{{ Request::is('invoice-generate') ? 'active' : ' ' }}"><a href="{{url('invoice-generate')}}"><i class="fa fa-link"></i> <span>Invoice Generate</span></a></li>
             
             <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
             

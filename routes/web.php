@@ -37,6 +37,11 @@ Route::get('/delete-class-{id}', 'AcademicManagementController@delete_class');
 
 Route::get('/test', 'AcademicManagementController@test');
 
+Route::get('/add-fees', 'AcademicManagementController@add_fees');
+Route::post('/save-fees', 'AcademicManagementController@save_fees');
+Route::get('/invoice-generate', 'AcademicManagementController@invoice_generate');
+Route::post('/generate-invoice', 'AcademicManagementController@generate_invoice');
+
 Route::get('/hello-world', function(){
   echo 'Hello World';  
 });

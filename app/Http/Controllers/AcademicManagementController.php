@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\ClassName;
+use App\Fee;
+use App\Student;
 
 class AcademicManagementController extends Controller {
 
@@ -58,6 +61,44 @@ class AcademicManagementController extends Controller {
             
             return response()->json($info);
             
+    }
+    
+    public function add_fees(){
+        
+        return view('admin.pages.account_section.add_fees');
+    }
+    
+    public function save_fees(Request $request){
+        
+        $fee = new Fee;
+        
+        $fee->fee_title = $request->fee_title;
+        $fee->fee_amount = $request->fee_amount;
+        
+        $fee->save();
+        
+        return back()->with('success', 'Created New Fee Successfully');
+    }
+    
+    public function invoice_generate(){
+        
+        $class = ClassName::all();
+        
+        $fee = Fee::all();
+        
+        $data['class']= $class;
+        $data['fee']= $fee;
+        
+        return view('admin.pages.account_section.invoice_generate')->with($data);
+    }
+    
+    public function generate_invoice(Request $request){
+        
+        $input = $request->all();
+        
+        echo '<pre>';
+        print_r($input);
+        
     }
 
 }

@@ -8,9 +8,9 @@
 
 @push('css')     <!-- additional css-->
 <!-- DataTables -->
-<link rel="stylesheet" href="{{asset('public/admin_assets')}}/plugins/datatables/dataTables.bootstrap.css">
+<link rel="stylesheet" href="{{asset('public/admin_assets/plugins/datatables/dataTables.bootstrap.css')}}">
 <!-- toastr css -->
-<link rel="stylesheet" href="{{asset('public/admin_assets')}}/plugins/toastr/toastr.css">
+<link rel="stylesheet" href="{{asset('public/admin_assets/plugins/toastr/toastr.css')}}">
 
 @endpush         <!-- end additional css-->
 
@@ -33,7 +33,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <!-- Custom Tabs -->
+       <!-- Custom Tabs -->
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_1" data-toggle="tab">Subject</a></li>
