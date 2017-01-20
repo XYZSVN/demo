@@ -46,6 +46,9 @@ Route::post('/ajax-update-head-item', 'AcademicManagementController@ajax_update_
 Route::get('/ajax-delete-head-item-view', 'AcademicManagementController@ajax_delete_head_item');
 Route::post('/delete-head-item', 'AcademicManagementController@delete_head_item');
 
+
+Route::get('/account-head-selection', 'AcademicManagementController@account_head_selection');
+
 Route::get('/add-fees', 'AcademicManagementController@add_fees');
 Route::post('/save-fees', 'AcademicManagementController@save_fees');
 Route::get('/invoice-generate', 'AcademicManagementController@invoice_generate');

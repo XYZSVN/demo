@@ -194,5 +194,18 @@ class AcademicManagementController extends Controller {
         print_r($input);
         
     }
+    
+    public function account_head_selection(Request $request){
+        
+        if ($request->ajax()) {
+            $head_category = $request->id;
+            $head_items = HeadItem::where('head_category',$head_category)->get();
+            
+            //echo json_decode($info);
+            return response()->json($head_items);
+        }
+        
+    }
+    
 
 }

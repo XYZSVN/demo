@@ -40,19 +40,6 @@
                 <li><a href="#tab_2" data-toggle="tab">Head Items</a></li>
                 <li><a href="#tab_3" data-toggle="tab">Account Head</a></li>
                 <li><a href="#tab_4" data-toggle="tab">Assign Item to Student</a></li>
-
-                <!--                <li class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        Dropdown <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                                    </ul>
-                                </li>-->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
@@ -62,7 +49,7 @@
 
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <select name="head_category" class="form-control" required="">
+                                    <select name="head_category" class="form-control" required>
                                         <option selected disabled> Select Head Category </option>
                                         <option value="income"> Income </option>
                                         <option value="expense"> Expense </option>
@@ -167,7 +154,7 @@
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <select name="head_category" class="form-control" required="">
+                                    <select name="head_category" class="form-control" required onchange="account_head_selection(this.value,'{{ url('/account-head-selection') }}','#head_item_select')">
                                         <option selected disabled> Select Head Category </option>
                                         <option value="income"> Income </option>
                                         <option value="expense"> Expense </option>
@@ -178,9 +165,8 @@
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <select name="head_item" class="form-control" required="">
+                                    <select name="head_item" id="head_item_select" class="form-control" required="">
                                         <option selected disabled> Select Head Item </option>
-                                        <option value="ict_expense"> ICT Expense </option>
                                     </select>
                                 </div>
                             </div>
@@ -424,7 +410,7 @@ function view_head_item(id, link)
         url: link,
         type: "GET",
         data: {"id": id},
-        success: function (result) {
+        success:function(result){
             //console.log(result);
             $("#ajax_head_name").val(result.head_name);
             $("#ajax_head_category").val(result.head_category);
@@ -444,15 +430,15 @@ function edit_head_item(id, link)
         }
     });
 }
-function delete_head_item(id, link)
+function delete_head_item(id, link,des)
 {
     $.ajax({
         url: link,
         type: "GET",
         data: {"id": id},
         success: function (result) {
-            console.log(result);
-            $("#delete_head_item_id").val(result.id);
+            //console.log(result);
+            $(des).html(result.res);
         }
     });
 }
@@ -494,6 +480,28 @@ function send_delete_id(id, des) {
 //     }
 //   });
 // };
+
+function account_head_selection(id,link){
+    $.ajax({
+        url: link,
+        type: "GET",
+        data: {"id": id},
+        success: function (result) {
+            //console.log(result);
+            $('#head_item_select').empty();
+            $('#head_item_select').append('<option selected disabled> Select Head Item </option>');
+            
+            $.each(result, function(index, subcatObj){
+                $('#head_item_select').append('<option value=" '+subcatObj.id+' ">'+subcatObj.head_name+'</option>');
+            });
+            
+        },
+        error: function(err){
+            console.log(err);
+        }
+    });
+}
+
 
 </script>
 <!-- DataTables -->
