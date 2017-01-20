@@ -37,6 +37,15 @@ Route::get('/delete-class-{id}', 'AcademicManagementController@delete_class');
 
 Route::get('/test', 'AcademicManagementController@test');
 
+Route::get('/account-settings', 'AcademicManagementController@account_settings');
+
+Route::post('/save-new-head', 'AcademicManagementController@save_new_head');
+Route::get('/ajax-view-head-item', 'AcademicManagementController@ajax_view_head_item');
+Route::get('/ajax-edit-head-item', 'AcademicManagementController@ajax_edit_head_item');
+Route::post('/ajax-update-head-item', 'AcademicManagementController@ajax_update_head_item');
+Route::get('/ajax-delete-head-item-view', 'AcademicManagementController@ajax_delete_head_item');
+Route::post('/delete-head-item', 'AcademicManagementController@delete_head_item');
+
 Route::get('/add-fees', 'AcademicManagementController@add_fees');
 Route::post('/save-fees', 'AcademicManagementController@save_fees');
 Route::get('/invoice-generate', 'AcademicManagementController@invoice_generate');
