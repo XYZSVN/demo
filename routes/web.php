@@ -49,6 +49,22 @@ Route::post('/delete-head-item', 'AcademicManagementController@delete_head_item'
 
 Route::get('/account-head-selection', 'AcademicManagementController@account_head_selection');
 
+
+Route::post('/save-new-account-item', 'AcademicManagementController@save_new_account_item');
+
+Route::get('/ajax-account-item-select', 'AcademicManagementController@ajax_account_item_select');
+Route::get('/ajax-account-name-select', 'AcademicManagementController@ajax_account_name_select');
+
+//Route::get('/ajax-subcat',function(){
+//    
+//    $cat_id = Input::get('category_id');
+//    
+//    $subcategories = HeadItem::where('head_category',$cat_id)->get();
+//    
+//    return Response::json($subcategories);
+//    
+//});
+
 Route::get('/add-fees', 'AcademicManagementController@add_fees');
 Route::post('/save-fees', 'AcademicManagementController@save_fees');
 Route::get('/invoice-generate', 'AcademicManagementController@invoice_generate');

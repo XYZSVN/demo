@@ -44,12 +44,12 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
                     <div class="row">
-                        <form role="form" method="post" action="{{url('save-new-head')}}">
+                        <form role="form" method="post" action="{{url('/')}}">
                             {{ csrf_field() }}
 
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <select name="head_category" class="form-control" required>
+                                    <select name="account_item_head_category" id="AccountItemHeadCategory" onchange="account_item_select_head(this.value,'{{ url('/ajax-account-item-select') }}')" class="form-control" required>
                                         <option selected disabled> Select Head Category </option>
                                         <option value="income"> Income </option>
                                         <option value="expense"> Expense </option>
@@ -60,17 +60,15 @@
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <select name="head_item" class="form-control" required="">
+                                    <select name="head_item" id="AccountItemHeadItem" onchange="account_item_select_head_category(this.value,'{{ url('/ajax-account-name-select') }}')" class="form-control" required="">
                                         <option selected disabled> Select Head Item </option>
-                                        <option value="ict_expense"> ICT Expense </option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <select name="account_item_name" class="form-control" required="">
-                                        <option selected disabled> Select Account Item Name </option>
-                                        <option value="soft_cost"> Software Cost </option>
+                                    <select name="account_item_name" id="AccountItemAccountName" class="form-control" required="">
+                                        <option selected disabled> Select Account Item </option>
                                     </select>
                                 </div>
                             </div>
@@ -116,16 +114,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($all_account_items as $v)
                                             <tr>
-                                                <td>1</td>
-                                                <td>Item Name</td>
-                                                <td>4000</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $v->account_item_name }}</td>
+                                                <td>{{ $v->account_item_price }}</td>
                                                 <td>Class one</td>
-                                                <td>Created by</td>
-                                                <td>Date</td>
+                                                <td>{{ $v->accuont_item_created_by }}</td>
+                                                <td>{{ $v->created_at }}</td>
                                                 <td><a href="#">Details</a></td>
                                             </tr>
-
+                                            @endforeach
                                         </tbody>
 
                                     </table>
@@ -144,7 +143,7 @@
                 <div class="tab-pane" id="tab_2">
                     <br/>
                     <div class="row">
-                        <form role="form" method="post" action="{{url('save-new-head')}}">
+                        <form role="form" method="post" action="{{url('save-new-account-item')}}">
                             {{ csrf_field() }}
 
                             <div class="col-xs-3">
@@ -190,19 +189,23 @@
                                         <thead>
                                             <tr>
                                                 <th>SL</th>
+                                                <th>Account Item Title</th>
                                                 <th>Head Name</th>
                                                 <th>Head Category</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($all_account_items as $v)
                                             <tr>
-                                                <td>1</td>
-                                                <td>Head Name</td>
-                                                <td>Category</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $v->account_item_name }}</td>
+                                                <td>{{ $v->head_item->head_name }}</td>
+                                                <td>{{ $v->head_item->head_category }}</td>
+                                                <!--<td>{{ $v->item_type }}</td>-->
                                                 <td><a href="#">Edit</a></td>
                                             </tr>
-
+                                            @endforeach
                                         </tbody>
 
                                     </table>
@@ -403,6 +406,63 @@
 <!-- toastr script -->
 <script src="{{asset('public/admin_assets')}}/plugins/toastr/toastr.min.js"></script>
 <!--ajax-->
+<!--Account Item Assign Values with ajax-->
+<script>
+    function account_item_select_head(value,link)
+        {
+            $.ajax({
+            url: link,
+            type: "GET",
+            data: {"data": value},
+            success:function(result){
+            //console.log(result);
+            $('#AccountItemHeadItem').empty();
+            $('#AccountItemHeadItem').append('<option selected disabled> Select Head Item </option>');
+            
+            $.each(result, function(index, subcatObj){
+                $('#AccountItemHeadItem').append('<option value=" '+subcatObj.id+' ">'+subcatObj.head_name+'</option>');
+            });
+            
+            
+            }
+        });
+            
+        }
+    function account_item_select_head_category(value,link)
+        {
+            $.ajax({
+            url: link,
+            type: "GET",
+            data: {"data": value},
+            success:function(result){
+            console.log(result);
+            $('#AccountItemAccountName').empty();
+            $('#AccountItemAccountName').append('<option selected disabled> Select Account Item </option>');
+            
+            $.each(result, function(index, subcatObj){
+                $('#AccountItemAccountName').append('<option value=" '+subcatObj.id+' ">'+subcatObj.account_item_name+'</option>');
+            });
+            
+            
+            }
+        });
+            
+        }
+    
+//    $('#AccountItemHeadCategory').on('change',function(e){
+//        //console.log(e);
+//        var category_id = e.target.value;
+//        
+//        $.get('/schoolerp/ajax-subcat?cat_id='+ category_id, function(data){
+//            
+//            console.log(data);
+//            
+//        });
+//        
+//    });
+    
+</script>
+
 <script>
 function view_head_item(id, link)
 {

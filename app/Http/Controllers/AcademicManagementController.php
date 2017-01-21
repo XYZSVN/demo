@@ -8,6 +8,7 @@ use App\ClassName;
 use App\Fee;
 use App\Student;
 use App\HeadItem;
+use App\AccountItem;
 
 class AcademicManagementController extends Controller {
 
@@ -67,8 +68,9 @@ class AcademicManagementController extends Controller {
     public function account_settings(){
         
         $all_head_items = HeadItem::all();
+        $all_account_items = AccountItem::all();
         
-        return view('admin.pages.account_section.account_settings', compact('all_head_items'));
+        return view('admin.pages.account_section.account_settings', compact('all_head_items','all_account_items'));
     }
     
     public function save_new_head(Request $request){
@@ -203,6 +205,43 @@ class AcademicManagementController extends Controller {
             
             //echo json_decode($info);
             return response()->json($head_items);
+        }
+        
+    }
+    
+    public function save_new_account_item(Request $request){
+        
+        $account_item = new AccountItem;
+        
+        $account_item->account_item_name = $request->account_item_name;
+        $account_item->item_type = $request->head_category;
+        $account_item->head_items_id = $request->head_item;
+        
+        $account_item->save();
+        
+        return back()->with('success','Account Item Created Successfully');
+        
+    }
+    
+    public function ajax_account_item_select(Request $request){
+        
+        if ($request->ajax()) {
+            $head_category = $request->data;
+            $head_items = HeadItem::where('head_category',$head_category)->get();
+            
+            //echo json_decode($info);
+            return response()->json($head_items);
+        }
+        
+    }
+    public function ajax_account_name_select(Request $request){
+        
+        if ($request->ajax()) {
+            $head_name = $request->data;
+            $account_items = AccountItem::where('head_items_id',$head_name)->get();
+            
+            //echo json_decode($info);
+            return response()->json($account_items);
         }
         
     }

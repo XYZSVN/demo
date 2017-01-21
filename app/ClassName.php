@@ -24,5 +24,13 @@ class ClassName extends Model {
     public function subject() {
         return $this->hasMany('App\Subject', 'class_name_id');
     }
+    
+    public function account_item(){
+        return $this->hasMany('App\AccountItem');
+    }
+    
+    public function head_item(){
+        return $this->hasMany('App\HeadItem');
+    }
 
 }
