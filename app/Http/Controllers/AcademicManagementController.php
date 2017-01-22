@@ -69,8 +69,15 @@ class AcademicManagementController extends Controller {
         
         $all_head_items = HeadItem::all();
         $all_account_items = AccountItem::all();
+        $all_class_name = ClassName::all();
         
-        return view('admin.pages.account_section.account_settings', compact('all_head_items','all_account_items'));
+        $assign_student_items = AccountItem::where('item_type','=','income')->get();
+        
+//        echo'<pre>';
+//        print_r($assign_student_items);
+//        exit();
+        
+        return view('admin.pages.account_section.account_settings', compact('all_head_items','all_account_items','assign_student_items','all_class_name'));
     }
     
     public function save_new_head(Request $request){
@@ -223,6 +230,20 @@ class AcademicManagementController extends Controller {
         
     }
     
+    public function save_account_item_amount(Request $request){
+        
+        $id = $request->account_item_name;
+        
+        $account_item = AccountItem::find($id);
+        
+        $account_item->account_item_price = $request->amount;
+        
+        $account_item->save();
+        
+        return back()->with('success','Account Item Price Created Successfully');
+        
+    }
+    
     public function ajax_account_item_select(Request $request){
         
         if ($request->ajax()) {
@@ -242,6 +263,33 @@ class AcademicManagementController extends Controller {
             
             //echo json_decode($info);
             return response()->json($account_items);
+        }
+        
+    }
+    public function ajax_invoice_select_class(Request $request){
+        
+        if ($request->ajax()) {
+            $class_name = $request->data;
+            $class_students = Student::where('class',$class_name)->get();
+            
+            foreach($class_students as $v){
+                $html[$v->id] =              "<tr>
+                                                <td> $v->id </td>
+                                                <td> $v->first_name "." $v->last_name </td>
+                                                <td> $v->sid </td>
+                                                <td> $v->class</td>
+                                                <td  class="."text-center".">
+                                                    <label>
+                                                        <input  type="."checkbox"." class="."flat-red"." checked>
+                                                    </label>
+                                                </td>
+                                            </tr>";
+            }
+            
+            $info['res']= compact($html);
+            
+            //echo json_decode($info);
+            return response()->json($info);
         }
         
     }

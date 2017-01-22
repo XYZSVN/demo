@@ -49,11 +49,13 @@ Route::post('/delete-head-item', 'AcademicManagementController@delete_head_item'
 
 Route::get('/account-head-selection', 'AcademicManagementController@account_head_selection');
 
-
-Route::post('/save-new-account-item', 'AcademicManagementController@save_new_account_item');
-
 Route::get('/ajax-account-item-select', 'AcademicManagementController@ajax_account_item_select');
 Route::get('/ajax-account-name-select', 'AcademicManagementController@ajax_account_name_select');
+
+Route::post('/save-new-account-item', 'AcademicManagementController@save_new_account_item');
+Route::post('/save-account-item-amount', 'AcademicManagementController@save_account_item_amount');
+
+Route::get('/ajax-invoice-select-class', 'AcademicManagementController@ajax_invoice_select_class');
 
 //Route::get('/ajax-subcat',function(){
 //    
