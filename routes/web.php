@@ -57,20 +57,24 @@ Route::post('/save-account-item-amount', 'AcademicManagementController@save_acco
 
 Route::get('/ajax-invoice-select-class', 'AcademicManagementController@ajax_invoice_select_class');
 
-//Route::get('/ajax-subcat',function(){
-//    
-//    $cat_id = Input::get('category_id');
-//    
-//    $subcategories = HeadItem::where('head_category',$cat_id)->get();
-//    
-//    return Response::json($subcategories);
-//    
-//});
 
 Route::get('/add-fees', 'AcademicManagementController@add_fees');
 Route::post('/save-fees', 'AcademicManagementController@save_fees');
 Route::get('/invoice-generate', 'AcademicManagementController@invoice_generate');
 Route::post('/generate-invoice', 'AcademicManagementController@generate_invoice');
+
+Route::post('/generate-invoice-for-students', 'AcademicManagementController@generate_invoice_for_students');
+
+Route::get('/student-details/{id}','AccountController@student_profile');
+Route::get('/invoices','AccountController@invoices');
+
+Route::get('/edit-student-invoice-item/{id}','AccountController@edit_student_invoice_item');
+Route::post('/update-invoice-item','AccountController@update_invoice_item');
+
+
+Route::get('/ajax-edit-invoice-item','AccountController@ajax_edit_invoice_item');
+Route::post('/ajax-update-invoice-item','AccountController@ajax_update_invoice_item');
+Route::get('/delete-invoice-item/{id}','AccountController@delete_invoice_item');
 
 Route::get('/hello-world', function(){
   echo 'Hello World';  
