@@ -76,6 +76,9 @@ Route::get('/ajax-edit-invoice-item','AccountController@ajax_edit_invoice_item')
 Route::post('/ajax-update-invoice-item','AccountController@ajax_update_invoice_item');
 Route::get('/delete-invoice-item/{id}','AccountController@delete_invoice_item');
 
+
+Route::get('/ajax-each-student-invoice-item-create','AccountController@each_student_invoice_item_create');
+
 Route::get('/hello-world', function(){
   echo 'Hello World';  
 });

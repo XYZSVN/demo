@@ -9,6 +9,7 @@ use App\Fee;
 use App\Student;
 use App\HeadItem;
 use App\AccountItem;
+use App\Invoice;
 
 class AcademicManagementController extends Controller {
 
@@ -272,27 +273,42 @@ class AcademicManagementController extends Controller {
             $class_name = $request->data;
             $class_students = Student::where('class',$class_name)->get();
             
-            foreach($class_students as $v){
-                $html[$v->id] =              "<tr>
-                                                <td> $v->id </td>
-                                                <td> $v->first_name "." $v->last_name </td>
-                                                <td> $v->sid </td>
-                                                <td> $v->class</td>
-                                                <td  class="."text-center".">
-                                                    <label>
-                                                        <input  type="."checkbox"." class="."flat-red"." checked>
-                                                    </label>
-                                                </td>
-                                            </tr>";
-            }
+            view()->share('info',$class_students);
+            $view = view('admin.pages.account_section.ajax_view.invoice_student_list');
+            $render = $view->render();
+            $result['response'] = $render;
             
-            $info['res']= compact($html);
+//            $info = User::all();
+//            view()->share('info', $info);
+//            $view=view('crud.view');
+//            $res=$view->render();           
+//            $rest['message']= $res;
+//            return response()->json($rest);
+            
             
             //echo json_decode($info);
-            return response()->json($info);
+            
+            return response()->json($result);
         }
         
     }
     
+    public function generate_invoice_for_students(Request $request){
+        
+        $account_item_id = $request->select_account_item;
+        $count = count($request->checked_student);
+        
+        for($i=0; $i<$count; $i++){
+            $invoice = new Invoice;
+            $invoice->account_item_id = $account_item_id;
+            $invoice->user_id = $request->checked_student[$i];
+            $invoice->status = 0; // unpaid status
+            $invoice->type = 'income';
+            
+            $invoice->save();
+        }
+        
+        return back()->with('success','Invoice Successfully Created for Students');
+    }
 
 }

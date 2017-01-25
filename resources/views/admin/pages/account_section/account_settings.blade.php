@@ -290,7 +290,6 @@
                                         </tbody>
 
                                     </table>
-                                    <input type="hidden" name="hidden_view" id="hidden_view" value="{{url('/ajax-view-head-item')}}">
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -309,7 +308,7 @@
                                 <select name="select_class" class="form-control" required="" onchange="account_item_select_class(this.value,'{{ url('/ajax-invoice-select-class') }}','#studentAccountListTable')">
                                     <option selected disabled> Select Class Name </option>
                                     @foreach($all_class_name as $v)
-                                    <option value="{{ $v->id }}"> {{ $v->class_name }} </option>
+                                    <option value="{{ $v->class_name }}"> {{ $v->class_name }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -318,7 +317,7 @@
                             <div class="form-group">
                                 <select name="select_year" class="form-control" required="">
                                     <option selected disabled> Select Year </option>
-                                    <option value="income"> Income </option>
+                                    <option value="income"> 2017 </option>
                                 </select>
                             </div>
                         </div>
@@ -337,8 +336,8 @@
                                     <div class="row">
                                         <div class="col-xs-5">
                                             <div class="form-group">
-                                                <label>Account Item to Assign </label>
-                                                <select name="select_account_item" class="form-control" required="">
+                                                <label class="bold text-uppercase text-primary">Account Item to Assign * </label>
+                                                <select name="select_account_item" id="selectItemsForInvoice" onchange="submit_button_enable(this.value)" class="form-control" required>
                                                     <option selected disabled> Select Account Item </option>
                                                     @foreach($assign_student_items as $v)
                                                     <option value="{{$v->id}}"> {{$v->account_item_name}} </option>
@@ -363,17 +362,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="studentAccountListTable">
-                                            <tr>
-                                                <td> 1 </td>
-                                                <td>Student Name</td>
-                                                <td> SID </td>
-                                                <td>Roll</td>
-                                                <td  class="text-center">
-                                                    <label>
-                                                        <input  type="checkbox" class="flat-red" checked>
-                                                    </label>
-                                                </td>
-                                            </tr>
+                                            
                                         </tbody>
 
                                     </table>
@@ -381,7 +370,7 @@
                                 <!-- /.box-body -->
                                 <div class="box-footer">
                                     <div class="form-group pull-right">
-                                        <button class="btn btn-success" type="submit" form="generateStudentInvoice" style="margin-right: 100px">Submit</button>
+                                        <button id="submitInvoicesStudents" class="btn btn-success" type="submit" form="generateStudentInvoice" style="margin-right: 80px">Submit</button>
                                     </div>
                                 </div>
                             </div>
@@ -390,7 +379,7 @@
                         </div>              
                     </div>
                 </div>
-
+                
                 <!--MODALS-->                 
 
 
@@ -494,6 +483,14 @@
 <!-- toastr script -->
 <script src="{{asset('public/admin_assets')}}/plugins/toastr/toastr.min.js"></script>
 <script src="{{asset('public/admin_assets')}}/plugins/iCheck/icheck.min.js"></script>
+<script>
+                    document.getElementById("submitInvoicesStudents").disabled=true;
+                    function submit_button_enable(value){
+                        if(value){
+                            document.getElementById("submitInvoicesStudents").disabled=false;
+                        }                        
+                    }
+</script>
 <!--ajax-->
 <!--Account Item Assign Values with ajax-->
 <script>
@@ -532,12 +529,12 @@
         function account_item_select_class(value, link,des)
         {
            $.ajax({
-        url: link,
-        type:"GET", 
-        data: {"data":value}, 
-        success: function(result){
+            url: link,
+            type:"GET", 
+            data: {"data":value}, 
+            success: function(result){
             console.log(result);
-          $(des).html(result.res);
+            $(des).html(result.response);
         }
       });
      }
@@ -688,21 +685,6 @@
             "autoWidth": true
     });
     });
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-    checkboxClass: 'icheckbox_minimal-red',
-            radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-    checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-    });</script>
 <script type="text/javascript">
     function check_delete()
     {

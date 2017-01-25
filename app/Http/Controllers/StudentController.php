@@ -84,7 +84,7 @@ class StudentController extends Controller {
     }
 
     public function student_list() {
-        $students= Student::paginate(3);
+        $students= Student::paginate(10);
         return view('admin.pages.students.student_list', compact('students'));
     }
 

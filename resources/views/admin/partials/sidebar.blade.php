@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{asset('public/admin_assets')}}/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="{{asset('public/')}}/user.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>Alexander Pierce</p>
@@ -59,7 +59,7 @@
                 </ul>
             </li>
 
-            <li class="treeview {{ Request::is('add-fees'||'account-settings') ? 'active' : ' ' }}">
+            <li class="treeview">
                 <a href="#"><i class="fa fa-bank"></i> Account Management
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
@@ -94,6 +94,8 @@
                 </ul>
             </li>
 
+            <li class="{{ Request::is('student-list') ? 'active' : ' ' }}"><a href="{{url('/student-list')}}"><i class="fa fa-user"></i> <span>Student Lists</span></a></li>
+            <li class="{{ Request::is('invoices') ? 'active' : ' ' }}"><a href="{{url('/invoices')}}"><i class="fa fa-gears"></i> <span>Invoices</span></a></li>
             <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
 
         </ul>

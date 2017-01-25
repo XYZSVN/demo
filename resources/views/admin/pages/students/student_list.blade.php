@@ -41,7 +41,6 @@
                             <th>Class</th>
                             <th>Year</th>
                             <th>Status</th>
-                            <th>Account</th>
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -58,7 +57,6 @@
                             <td>{{ $v->class }}</td>
                             <td>{{ $v->academic_year }}</td>
                             <td>{{-- $v->status --}}Status</td>
-                            <td><a href="{{ url('/student-acount/'.$v->id) }}">Account</a></td>
                             <td><a href="{{ url('/student-details/'.$v->id) }}">Details</a></td>
                         </tr>
                         @endforeach
@@ -75,7 +73,6 @@
                             <th>Class</th>
                             <th>Year</th>
                             <th>Status</th>
-                            <th>Account</th>
                             <th>Details</th>
                         </tr>
                     </tfoot>
