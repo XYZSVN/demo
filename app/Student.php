@@ -24,6 +24,9 @@ class Student extends Model
         return $this->belongsTo('App\ClassName', 'class_name_id');
     }
     
+    public function invoice(){
+        return $this->hasMany('App\Invoice','user_id');
+    }
     
     
     

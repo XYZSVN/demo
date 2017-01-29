@@ -28,32 +28,42 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table id="view2" class="table table-bordered table-striped table-hover">
+                <table id="view2" class="table table-bordered table-striped table-hover table-responsive">
                     <thead>
                         <tr>
-                            <th>SL</th>
-                            <th>Invoice ID</th>
+                            <th>ID</th>
+                            <th>Student Name</th>
                             <th>Account Item Name</th>
-                            <th>Note</th>
                             <th>Item Price</th>
                             <th>Status</th>
+                            <th>Created By</th>
+                            <th>Note</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($invoices as $v)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $v->id }}</td>
+                            <td>
+                                <a href="{{url('/student-details/'.$v->user_id)}}">
+                                    <?php
+                                    $user = DB::table('students')->where('id', $v->user_id)->first();
+                                    echo $user->first_name . ' ' . $user->last_name;
+                                    ?>
+                                </a>
+                            </td>
                             <td>{{ $v->account_item->account_item_name }}</td>
                             <td>{{ $v->note }}</td>
                             <td>{{ $v->account_item->account_item_price }}</td>
                             <td><?php $status = $v->status; ?> @if($status) Paid @else Unpaid @endif</td>
+                            <td> {{ $v->invoice_created_by }} </td>
+                            <td> {{ $v->note }} </td>
                             <td class="text-center">
                                 <!--view_head_item('{{$v -> id}}','{{url('/ajax-view-head-item')}}')-->
-                                <a class="btn btn-info" href="#view_invoice_item" data-toggle="modal" onclick="" >
+<!--                                <a class="btn btn-info" href="#view_invoice_item" data-toggle="modal" onclick="" >
                                     <span data-toggle="tooltip" data-placement="top" title="view" class="glyphicon glyphicon-eye-open"></span>
-                                </a>
+                                </a>-->
                                 <a class="btn btn-warning" href="{{url('/edit-student-invoice-item/'.$v->id)}}" >
                                     <span data-toggle="tooltip" data-placement="top" title="edit" class="glyphicon glyphicon-edit"></span>
                                 </a>

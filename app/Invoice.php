@@ -16,4 +16,7 @@ class Invoice extends Model
     public function account_item(){
         return $this->belongsTo('App\AccountItem','account_item_id');
     }
+    public function student(){
+        return $this->belongsTo('App\Student','student_id');
+    }
 }
